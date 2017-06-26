@@ -1,9 +1,8 @@
-import os
 from flask import Flask, url_for, render_template, request
 
-app = Flask(__name__)
+app = Flask(__name__)#__name__ = __main__ if this is the file that was run.  Otherwise, it is the name of the file (ex. hello)
 
-@app.route('/')
+@app.route("/")
 def render_main():
     return render_template('home.html')
 
@@ -24,7 +23,9 @@ def render_ftoc_result():
     try:
         ftemp_result = float(request.args['fTemp'])
         ctemp_result = ftoc(ftemp_result)
-        return render_template('ftoc_result.html', fTemp=ftemp_result, cTemp=ctemp_result)
+        return render_template('ftoc_result.html',
+                               fTemp="{:.2f}".format(ftemp_result),
+                               cTemp="{:.2f}".format(ctemp_result))
     except ValueError:
         return "Sorry: something went wrong."
 
